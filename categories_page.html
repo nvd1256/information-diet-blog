@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Information Diet Blog</title>
+    <meta name="description" content="Explore content categories on Information Diet - from digital wellness to mindful content consumption strategies.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --border-color: #e9ecef;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .search-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-color);
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .category-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .category-content {
+            padding: 1.5rem;
+        }
+
+        .category-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .category-posts {
+            list-style: none;
+        }
+
+        .category-posts li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-posts li:last-child {
+            border-bottom: none;
+        }
+
+        .category-posts a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .category-posts a:hover {
+            color: var(--accent-color);
+        }
+
+        .post-meta {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .view-all-btn:hover {
+            background: var(--primary-color);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--light-bg);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-radius: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+        .category-card:nth-child(5) { animation-delay: 0.5s; }
+        .category-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Information Diet</div>
+            <div class="tagline">Curating Quality Content for Mental Clarity</div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="categories.html" class="active">Categories</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search posts...">
+                    <button class="search-btn">Search</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+            <div class="page-header">
+                <h1 class="page-title">Explore Categories</h1>
+                <p class="page-subtitle">Discover curated content organized by topic to help you build a more mindful relationship with information.</p>
+            </div>
+
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">🧠</div>
+                        <h2 class="category-title">Digital Wellness</h2>
+                        <div class="category-count">12 posts</div>
+                    </div>
+                    <div class="category-content">
+                        <p class="category-description">
+                            Explore strategies for maintaining mental health in the digital age. Learn about screen time management, digital boundaries, and creating healthy tech habits.
+                        </p>
+                        <ul class="category-posts">
+                            <li>
+                                <a href="#">The Hidden Cost of Information Overload</a>
+                                <div class="post-meta">March 15, 2024 • 5 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Digital Detox: A Practical 30-Day Plan</a>
+                                <div class="post-meta">February 28, 2024 • 8 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Breaking the Notification Addiction</a>
+                                <div class="post-meta">February 20, 2024 • 6 min read</div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all-btn">View All Posts</a>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">📚</div>
+                        <h2 class="category-title">Content Curation</h2>
+                        <div class="category-count">8 posts</div>
+                    </div>
+                    <div class="category-content">
+                        <p class="category-description">
+                            Master the art of selecting high-quality information sources. Learn filtering techniques, evaluation criteria, and systems for organizing valuable content.
+                        </p>
+                        <ul class="category-posts">
+                            <li>
+                                <a href="#">Building Your Personal Content Filter</a>
+                                <div class="post-meta">March 10, 2024 • 7 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">The Quality vs. Quantity Dilemma</a>
+                                <div class="post-meta">March 1, 2024 • 5 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Creating Your Information Hierarchy</a>
+                                <div class="post-meta">February 15, 2024 • 9 min read</div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all-btn">View All Posts</a>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">🧘</div>
+                        <h2 class="category-title">Mindfulness</h2>
+                        <div class="category-count">10 posts</div>
+                    </div>
+                    <div class="category-content">
+                        <p class="category-description">
+                            Integrate mindfulness practices into your information consumption. Discover techniques for present-moment awareness while reading, listening, and learning.
+                        </p>
+                        <ul class="category-posts">
+                            <li>
+                                <a href="#">The Science of Slow Information</a>
+                                <div class="post-meta">March 5, 2024 • 6 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Mindful Reading: A Complete Guide</a>
+                                <div class="post-meta">February 25, 2024 • 7 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Meditation for Information Workers</a>
+                                <div class="post-meta">February 10, 2024 • 5 min read</div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all-btn">View All Posts</a>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">⚡</div>
+                        <h2 class="category-title">Productivity</h2>
+                        <div class="category-count">9 posts</div>
+                    </div>
+                    <div class="category-content">
+                        <p class="category-description">
+                            Optimize your information processing for maximum productivity. Learn about focus techniques, information management systems, and cognitive enhancement strategies.
+                        </p>
+                        <ul class="category-posts">
+                            <li>
+                                <a href="#">The Focused Mind: Deep Work in the Information Age</a>
+                                <div class="post-meta">February 18, 2024 • 8 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Information Batching for Better Focus</a>
+                                <div class="post-meta">February 5, 2024 • 6 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">The Two-Minute Rule for Information</a>
+                                <div class="post-meta">January 28, 2024 • 4 min read</div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all-btn">View All Posts</a>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">💊</div>
+                        <h2 class="category-title">Mental Health</h2>
+                        <div class="category-count">7 posts</div>
+                    </div>
+                    <div class="category-content">
+                        <p class="category-description">
+                            Understand the psychological impact of information consumption. Explore anxiety management, stress reduction, and building resilience in our hyper-connected world.
+                        </p>
+                        <ul class="category-posts">
+                            <li>
+                                <a href="#">Information Anxiety: Causes and Solutions</a>
+                                <div class="post-meta">January 22, 2024 • 7 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">The Mental Load of Constant Updates</a>
+                                <div class="post-meta">January 15, 2024 • 6 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Building Cognitive Resilience</a>
+                                <div class="post-meta">January 8, 2024 • 9 min read</div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all-btn">View All Posts</a>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">💻</div>
+                        <h2 class="category-title">Technology</h2>
+                        <div class="category-count">6 posts</div>
+                    </div>
+                    <div class="category-content">
+                        <p class="category-description">
+                            Navigate the tools and platforms that shape our information environment. Reviews, recommendations, and strategies for using technology mindfully.
+                        </p>
+                        <ul class="category-posts">
+                            <li>
+                                <a href="#">The Best Apps for Information Management</a>
+                                <div class="post-meta">January 12, 2024 • 8 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">AI and Your Information Diet</a>
+                                <div class="post-meta">December 28, 2023 • 10 min read</div>
+                            </li>
+                            <li>
+                                <a href="#">Privacy-First Information Sources</a>
+                                <div class="post-meta">December 20, 2023 • 7 min read</div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all-btn">View All Posts</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">52</div>
+                            <div class="stat-label">Total Articles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">Categories</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1,247</div>
+                            <div class="stat-label">Monthly Readers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.8</div>
+                            <div class="stat-label">Average Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Information Diet</h4>
+                    <p>We believe in the power of mindful information consumption. Our mission is to help you curate quality content that nourishes your mind and supports your goals.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul style="list-style: none;">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul style="list-style: none;">
+                        <li><a href="#">Reading List</a></li>
+                        <li><a href="#">Tools & Apps</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Information Diet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm) {
+                // In a real implementation, this would search through all posts
+                alert(`Searching for: "${searchTerm}"`);
+            }
+        });
+
+        // Allow search on Enter key
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-btn').click();
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
